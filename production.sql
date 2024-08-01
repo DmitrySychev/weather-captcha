@@ -1,0 +1,1 @@
+CREATE DATABASE weather_captcha_production;

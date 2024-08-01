@@ -1,0 +1,34 @@
+
+
+<% if @weather %>
+  <p>Current Weather in New York City </p>
+  <% date_range = Array.new(7) {|i| [Date.today + i.days] } %>
+    <% date_range.each do |date| %>
+      <p> Date <%= date %> </p>
+      <p>Temperature: <%= @weather[date.join(' ')]['main']['temp'] - 273.15 %>°F</p>
+      <%= image_tag "https://openweathermap.org/img/wn/#{@weather[date.join(' ')]['weather'][0]['icon']}@2x.png" %>
+    <% end %>
+
+    <% flash.each do |type, msg| %>
+      <div>
+        <%= msg %>
+      </div>
+    <% end %>
+
+    <%= form_with url: weather_path, method: :post do %>
+      <%= hidden_field_tag :challenge_id, @challenge.id %>
+      <div>
+        <label for="temperature">Select the correct temperature for Thursday:</label>
+        <% options = [] %>
+        <% date_range.each do |date| %>
+          <% options << @weather[date.join(' ')]['main']['temp'] - 273.15 %>
+        <% end %>
+        <%= select_tag :temperature, options_for_select(options) %>
+      </div>
+      <div>
+        <%= submit_tag "Submit" %>
+      </div>
+    <% end %>
+<% else %>
+  <code> Please make sure you've updated your "api-key" in controllers/weatherController.rb </code>
+<% end %>
