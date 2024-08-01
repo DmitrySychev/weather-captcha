@@ -6,6 +6,11 @@ registry:
   username: dsychev
   password:
     - KAMAL_REGISTRY_PASSWORD
+builder:
+  dockerfile: Dockerfile
+  multiarch: true
+  cache:
+    type: registry
 ssh:
   user: azureuser
   keys: [ "keys/kamal.pem" ]
