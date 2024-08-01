@@ -2,7 +2,7 @@
 
 class WeatherController < ApplicationController
   def index
-    api_key = ENV['WEATHER_API_KEY']
+    api_key = Rails.application.credentials[:weather_api_key]
     @challenge = Challenge.find_by(user_token: params[:user_token])
     @challenge = Challenge.create(user_token: SecureRandom.uuid) if @challenge.nil? || @challenge.create_at < 1.day.ago
     api = WeatherApi.new(api_key, @challenge.id)
