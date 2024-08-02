@@ -17,6 +17,8 @@ ssh:
 env:
   secret:
     - RAILS_MASTER_KEY
+logging:
+  driver: json-file
 
 # # Name of your application. Used to uniquely configure containers.
 # service: weather-captcha
